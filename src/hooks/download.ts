@@ -2,6 +2,7 @@ import { useState } from "react";
 import ShowVisible from "./showVisible";
 import { twitchDownload } from "@/core/twitchDownload";
 import { iTwitchDownload } from "@/interfaces/twitchDownloadr.interface";
+import { youtubeDownload } from "@/core/youtubeDownload";
 
 export default function Download() {
 
@@ -29,7 +30,14 @@ export default function Download() {
                 } catch (err: any) {
                     alert(`Erro ao realizar o download: ${err.message}`);
                 }
-            } else {
+            } else if (url.includes('youtube')) {
+                try {
+                    await youtubeDl(url)
+                } catch (err: any) {
+                    alert(`Erro ao realizar o download: ${err.message}`);
+                }
+            }
+            else {
                 alert(`URL INVÁLIDA`);
             }
         }
@@ -44,6 +52,11 @@ export default function Download() {
             title: res.title,
             views: res.views
         })
+    }
+
+    async function youtubeDl(url: string) {
+        const res: any = await youtubeDownload(url)
+        return res
     }
 
     function _setUrl(url: string) {

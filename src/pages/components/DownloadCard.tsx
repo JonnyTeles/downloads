@@ -1,13 +1,17 @@
 import Button from "./Button";
 import { iDownloadCard } from "@/interfaces/downloadCard.interface";
+import { BackIcon, DownloadIcon } from "./Icons";
 
 export default function DownloadCard(props: iDownloadCard) {
+
+const downloadIcon = DownloadIcon
+const backIcon = BackIcon
 
   return (
     <div
       className={`
         flex justify-center 
-        bg-gradient-to-r from-blue-500 to-blue-800
+        bg-gradient-to-r from-blue-500 to-purple-800
         w-full
         text-white
       `}
@@ -22,9 +26,9 @@ export default function DownloadCard(props: iDownloadCard) {
           </p>
           <div className="flex justify-between">
             <a href={props.link}>
-              <Button color="green">Baixar</Button>
+              <Button color="green" icon={downloadIcon}>Baixar</Button>
             </a>
-            <Button color="red" onClick={props.back}>
+            <Button color="red" icon={backIcon} onClick={props.back}>
               Voltar
             </Button>
           </div>
