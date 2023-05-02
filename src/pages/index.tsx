@@ -4,13 +4,11 @@ import Button from "./components/Button";
 import DownloadCard from "./components/DownloadCard";
 import Layout from "./templates/Layout";
 import HandleKeyPress from "@/hooks/handleKeyPress";
-import { SearchIcon } from "./components/Icons";
+import Icon from "./components/Icons";
 
 export default function Home() {
   const { getUrl, getRes, _setUrl, handleUrl, visibleForm, showForm } =
     Download();
-
-    const searchIcon = SearchIcon
 
     const { handleKeyPress } = HandleKeyPress({ handleUrl });
 
@@ -36,7 +34,7 @@ export default function Home() {
                 />
                 <div className="mt-3 flex justify-start">
                   <Button onClick={() => handleUrl(String(getUrl()))} 
-                  icon={searchIcon}
+                  icon={Icon('search')}
                   >
                     {" "}
                     Pesquisar...{" "}
