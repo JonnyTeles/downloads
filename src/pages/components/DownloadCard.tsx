@@ -17,7 +17,7 @@ export default function DownloadCard(props: iDownloadCard) {
       <div className="w-full max-w-md">
         <div className="p-6 ">
           <div className="font-bold text-xl mb-2">{props.title}</div>
-          <Image className="w-full" src={props.thumb} alt="image" />
+          <img className="w-full" src={props.thumb} alt="image" width={500} height={500} />
           <p className=" text-base my-4">
             Canal: {props.channel} <br />
             Views: {props.views}

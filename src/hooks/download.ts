@@ -32,7 +32,7 @@ export default function Download() {
                 }
             } else if (url.includes('youtube')) {
                 try {
-                    await youtubeDl(url)
+                    alert('Só está funcionando clipes da twitch por enquanto :(')
                 } catch (err: any) {
                     alert(`Erro ao realizar o download: ${err.message}`);
                 }
