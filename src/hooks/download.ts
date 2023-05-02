@@ -1,38 +1,69 @@
 import { useState } from "react";
 import ShowVisible from "./showVisible";
-import { twitterDownloader } from "@/core/twitterDownload";
+import { twitchDownload } from "@/core/twitchDownload";
+import { iTwitchDownload } from "@/interfaces/twitchDownloadr.interface";
 
 export default function Download() {
-    
+
     const [url, setUrl] = useState("");
+    const [downloadInfo, setDownloadInfo] = useState({
+        download: "",
+        title: "",
+        thumb: "",
+        views: 0,
+        channel: "",
+    });
 
     const { showDownloadCard, showForm, visibleDownloadCard, visibleForm } = ShowVisible()
 
-
     async function handleUrl(url: string) {
-        if(url.includes('twitter')){
-            console.log(await twitterDownloader(url).catch(err => console.error(err)))
-            showDownloadCard()
+        if (url.length === 0) {
+            alert('Campo url não pode ser vázio')
+            return
+        } else {
+            if (url.includes('twitch')) {
+                try {
+                    await twitchDl(url)
+                    showDownloadCard()
+                    _setUrl('')
+                } catch (err: any) {
+                    alert(`Erro ao realizar o download: ${err.message}`);
+                }
+            } else {
+                alert(`URL INVÁLIDA`);
+            }
         }
-        return console.log(url);
     }
 
-    function _setUrl(url: string){
+    async function twitchDl(url: string) {
+        const res: iTwitchDownload = await twitchDownload(url)
+        setDownloadInfo({
+            channel: res.channel,
+            download: res.download,
+            thumb: res.thumb,
+            title: res.title,
+            views: res.views
+        })
+    }
+
+    function _setUrl(url: string) {
         setUrl(url)
-        return console.log(url);
     }
 
-    function getUrl(){
+    function getUrl() {
         return url
     }
 
-
+    function getRes() {
+        return downloadInfo
+    }
 
     return {
         getUrl,
         _setUrl,
         handleUrl,
         showForm,
+        getRes,
         visibleDownloadCard,
         visibleForm,
     }

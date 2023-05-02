@@ -8,7 +8,9 @@ export default function Input(props: iInput) {
         type="text"
         value={props.value}
         required
+        onKeyUp={props.handleKeyPress}
         onChange={(e) => props.changeValue?.(e.target.value)}
+        placeholder={props.placeholder  || ''}
         className={`
             border border-purple-500 rounded-lg
             focus:outline-none bg-gray-100 px-4 py-2

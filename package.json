@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@tcortega/twitter-scraper": "^0.2.4",
     "@types/node": "18.16.3",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
@@ -22,6 +21,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.2",
+    "twitter-url-direct": "^1.0.9",
     "typescript": "5.0.4"
   }
 }
