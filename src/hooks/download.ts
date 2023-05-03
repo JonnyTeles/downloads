@@ -3,6 +3,7 @@ import ShowVisible from "./showVisible";
 import { twitchDownload } from "@/core/twitchDownload";
 import { iTwitchDownload } from "@/interfaces/twitchDownloadr.interface";
 import youtubeApiRequest from "@/core/youtubeApiRequest";
+import twitterApiRequest from "@/core/twitterApiRequest";
 
 export default function Download() {
 
@@ -14,8 +15,9 @@ export default function Download() {
         views: 0,
         channel: "",
         youtube: false,
+        twitter: false,
         channelLink: "",
-        originalLink: ""
+        originalLink: "",
     });
 
     const { showDownloadCard, showForm, visibleDownloadCard, visibleForm } = ShowVisible()
@@ -41,6 +43,14 @@ export default function Download() {
                 } catch (err: any) {
                     alert(`Erro ao realizar o download: ${err.message}`);
                 }
+            } else if (url.includes('twitter')) {
+                try {
+                    await twitterDl(url)
+                    showDownloadCard()
+                    _setUrl('')
+                } catch (err: any) {
+                    alert(`Erro ao realizar o download: ${err.message}`);
+                }
             }
             else {
                 alert(`URL INVÁLIDA`);
@@ -57,8 +67,9 @@ export default function Download() {
             title: res.title,
             views: res.views,
             youtube: false,
+            twitter: false,
             channelLink: `https://www.twitch.tv/${res.channel}`,
-            originalLink: url
+            originalLink: url,
         })
     }
 
@@ -75,8 +86,25 @@ export default function Download() {
             title: title,
             views: +viewCount,
             youtube: true,
+            twitter: false,
             channelLink: channelUrl,
-            originalLink: url
+            originalLink: url,
+        })
+    }
+
+    async function twitterDl(url: string) {
+        const res = await twitterApiRequest(url)
+        const { download, favorite_count, reply_count } = res
+        setDownloadInfo({
+            channel: String(reply_count),
+            download: download,
+            thumb: download,
+            title: 'Twitter Video',
+            views: favorite_count,
+            youtube: false,
+            twitter: true,
+            channelLink: '',
+            originalLink: url,
         })
     }
 

@@ -7,5 +7,7 @@ export interface iDownloadCard {
     title: string,
     channel: string,
     views: number,
-    youtube: boolean
+    youtube: boolean,
+    twitter: boolean,
+    icon?: any
 }

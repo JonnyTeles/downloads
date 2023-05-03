@@ -23,8 +23,9 @@ export async function youtubeDownloader(url: string): Promise<iYoutubeResponse> 
         ownerChannelName: ownerChannelName,
         thumbnails: thumbnails[4].url,
         channelUrl: info.videoDetails.author.channel_url,
-        downloadUrl: Object.entries(uniqueLinks).map(([quality, url]) => ({ quality, url }))
-
+        downloadUrl: Object.entries(uniqueLinks)
+            .filter(([quality]) => quality.endsWith('p'))
+            .map(([quality, url]) => ({ quality, url }))
     }
 
     return response

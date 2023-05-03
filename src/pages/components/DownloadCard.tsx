@@ -3,7 +3,7 @@ import { iDownloadCard } from "@/interfaces/downloadCard.interface";
 import Icon from "./Icons";
 
 export default function DownloadCard(props: iDownloadCard) {
-  const { link, youtube } = props;
+  const { link, youtube, twitter } = props;
   const downloadLinks = Object.entries(link || {});
   const downloadButtons =
     youtube === false ? (
@@ -22,46 +22,97 @@ export default function DownloadCard(props: iDownloadCard) {
       ))
     );
 
-  return (
-    <div
-      className={`
+  const layout =
+    twitter === true ? (
+      <div
+        className={`
         flex justify-center 
         bg-gradient-to-r from-blue-500 to-blue-700
         w-full
         text-white
       `}
-    >
-      <div className="w-full max-w-md">
-        <div className="p-6 ">
-          <a href={props.originalUrl} target="_blank" className="inline-block">
-            <div className="font-bold text-xl mb-2 hover:text-purple-800">
-              {props.title}
-            </div>
-          </a>
-          <img
-            className="w-full"
-            src={props.thumb}
-            alt="image"
-            width={500}
-            height={500}
-          />
-          <p className=" text-base my-4 ">
-            <a href={props.channelLink} target="_blank" className="hover:text-purple-800">
-              Canal: {props.channel}
+      >
+        <div className="w-full max-w-md">
+          <div className="p-6 ">
+            <a
+              href={props.originalUrl}
+              target="_blank"
+              className="inline-block"
+            >
+              <div className="font-bold text-xl mb-2 hover:text-purple-800">
+                {props.title}
+              </div>
             </a>
-            <br />
-            Views: {props.views}
-          </p>
-          <div className="align-middle justify-around flex m-1">
-            {downloadButtons}
-            <div className="m-1">
-              <Button color="red" icon={Icon("back")} onClick={props.back}>
-                Voltar
-              </Button>
+            <video width="500" height="240" controls>
+              <source src={props.link} type="video/mp4" />
+              Seu navegador não suporta a tag de vídeo.
+            </video>
+            <p className=" text-base my-4 ">
+              Favoritos: {props.views}
+              <br />
+              Replys: {props.channel}
+            </p>
+            <div className="align-middle justify-around flex m-1">
+              {downloadButtons}
+              <div className="m-1">
+                <Button color="red" icon={Icon("back")} onClick={props.back}>
+                  Voltar
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    ) : (
+      <div
+        className={`
+        flex justify-center 
+        bg-gradient-to-r from-blue-500 to-blue-700
+        w-full
+        text-white
+      `}
+      >
+        <div className="w-full max-w-md">
+          <div className="p-6 ">
+            <a
+              href={props.originalUrl}
+              target="_blank"
+              className="inline-block"
+            >
+              <div className="font-bold text-xl mb-2 hover:text-purple-800">
+                {props.title}
+              </div>
+            </a>
+            <img
+              className="w-full"
+              src={props.thumb}
+              alt="image"
+              width={500}
+              height={500}
+            />
+            <p className=" text-base my-4 ">
+              <a
+                href={props.channelLink}
+                target="_blank"
+                className="hover:text-purple-800"
+              >
+                Canal: {props.channel}
+              </a>
+              <br />
+              Views: {props.views}
+            </p>
+            <div className="align-middle justify-around flex m-1">
+              {downloadButtons}
+              <div className="m-1">
+                <Button color="red" icon={Icon("back")} onClick={props.back}>
+                  Voltar
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+  return layout;
 }
