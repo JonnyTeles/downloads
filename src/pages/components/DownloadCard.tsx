@@ -4,7 +4,7 @@ import Icon from "./Icons";
 
 export default function DownloadCard(props: iDownloadCard) {
   const { link, youtube } = props;
-  const downloadLinks = Object.entries(link);
+  const downloadLinks = Object.entries(link || {});
   const downloadButtons =
     youtube === false ? (
       <a key={props.link} download href={props.link} target="_blank">
