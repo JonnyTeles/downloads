@@ -2,7 +2,7 @@ import { useState } from "react";
 import ShowVisible from "./showVisible";
 import { twitchDownload } from "@/core/twitchDownload";
 import { iTwitchDownload } from "@/interfaces/twitchDownloadr.interface";
-import { youtubeDownload } from "@/core/youtubeDownload";
+import youtubeApiRequest from "@/core/youtubeApiRequest";
 
 export default function Download() {
 
@@ -13,6 +13,9 @@ export default function Download() {
         thumb: "",
         views: 0,
         channel: "",
+        youtube: false,
+        channelLink: "",
+        originalLink: ""
     });
 
     const { showDownloadCard, showForm, visibleDownloadCard, visibleForm } = ShowVisible()
@@ -32,7 +35,9 @@ export default function Download() {
                 }
             } else if (url.includes('youtube')) {
                 try {
-                    alert('Só está funcionando clipes da twitch por enquanto :(')
+                    await youtubeDl(url)
+                    showDownloadCard()
+                    _setUrl('')
                 } catch (err: any) {
                     alert(`Erro ao realizar o download: ${err.message}`);
                 }
@@ -50,13 +55,29 @@ export default function Download() {
             download: res.download,
             thumb: res.thumb,
             title: res.title,
-            views: res.views
+            views: res.views,
+            youtube: false,
+            channelLink: `https://www.twitch.tv/${res.channel}`,
+            originalLink: url
         })
     }
 
     async function youtubeDl(url: string) {
-        const res: any = await youtubeDownload(url)
-        return res
+        const { title, downloadUrl, ownerChannelName, thumbnails, viewCount, channelUrl } = await youtubeApiRequest(url)
+        const downloadLinks: any = {};
+        for (const format of downloadUrl) {
+            downloadLinks[format.quality] = format.url;
+        }
+        setDownloadInfo({
+            channel: ownerChannelName,
+            download: downloadLinks,
+            thumb: thumbnails,
+            title: title,
+            views: +viewCount,
+            youtube: true,
+            channelLink: channelUrl,
+            originalLink: url
+        })
     }
 
     function _setUrl(url: string) {

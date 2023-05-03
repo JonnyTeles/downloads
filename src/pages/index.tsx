@@ -15,9 +15,9 @@ export default function Home() {
   return (
     <div
       className={`
-      flex justify-center items-center h-screen
+      flex justify-center items-center min-h-screen
       bg-gradient-to-r from-blue-500 to-blue-800
-      text-white
+      text-white h-auto
        `}
     >
       <Layout title="Download YouTube, Twitter, Twitch">
@@ -51,6 +51,9 @@ export default function Home() {
             thumb={getRes().thumb}
             title={getRes().title}
             views={getRes().views}
+            youtube={getRes().youtube}
+            channelLink={getRes().channelLink}
+            originalUrl={getRes().originalLink}
           />
         )}
       </Layout>
