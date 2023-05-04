@@ -5,7 +5,15 @@ const COOKIE = 'VISITOR_INFO1_LIVE=vPl0z_PGHzc; LOGIN_INFO=AFmmF2swRgIhAJlHb9gNi
 export async function youtubeDownloader(url: string): Promise<iYoutubeResponse> {
     const info = await ytdl.getInfo(url, { requestOptions: { headers: { cookie: COOKIE } } }).catch((err): any => console.error(err));
     const videoFormats = ytdl.filterFormats(info.formats, 'audioandvideo');
-    const mp3 = ytdl.filterFormats(info.formats, 'audioonly');
+    const audio = ytdl.filterFormats(info.formats, 'audioonly');
+    let mp3;
+
+    for (let i = 0; i < audio.length; i++) {
+        if (audio[i].mimeType?.includes('audio/mp4')) {
+            mp3 = audio[i];
+            break;
+        }
+    }
     const uniqueLinks: any = {};
 
     videoFormats.forEach(format => {
@@ -26,7 +34,7 @@ export async function youtubeDownloader(url: string): Promise<iYoutubeResponse> 
             links.push({ quality: qualityLabel, url });
         }
     });
-    links.push({ quality: 'mp3', url: mp3[0].url });
+    links.push({ quality: 'mp3', url: mp3?.url });
 
     const response: iYoutubeResponse = {
         title: title,
