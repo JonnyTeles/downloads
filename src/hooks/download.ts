@@ -84,7 +84,7 @@ export default function Download() {
     }
 
     async function youtubeDl(url: string) {
-        const { title, downloadUrl, ownerChannelName, thumbnails, viewCount, channelUrl } = await youtubeApiRequest(url)
+        const { title, downloadUrl, ownerChannelName, videoId, viewCount, channelUrl } = await youtubeApiRequest(url)
         const downloadLinks: any = {};
         for (const format of downloadUrl) {
             downloadLinks[format.quality] = format.url;
@@ -92,7 +92,7 @@ export default function Download() {
         setDownloadInfo({
             channel: ownerChannelName,
             download: downloadLinks,
-            thumb: thumbnails,
+            thumb: videoId,
             title: title,
             views: +viewCount,
             youtube: true,

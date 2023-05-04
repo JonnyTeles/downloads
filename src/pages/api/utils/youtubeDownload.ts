@@ -24,7 +24,7 @@ export async function youtubeDownloader(url: string): Promise<iYoutubeResponse> 
         }
     });
 
-    const { title, viewCount, ownerChannelName, thumbnails } = info.videoDetails
+    const { title, viewCount, ownerChannelName, videoId } = info.videoDetails
 
     const links: any = [];
 
@@ -40,7 +40,7 @@ export async function youtubeDownloader(url: string): Promise<iYoutubeResponse> 
         title: title,
         viewCount: viewCount,
         ownerChannelName: ownerChannelName,
-        thumbnails: thumbnails[4].url,
+        videoId: videoId,
         channelUrl: info.videoDetails.author.channel_url,
         downloadUrl: links
     }

@@ -16,6 +16,7 @@ export async function twitchDownload(url: string): Promise<iTwitchDownload> {
                 },
             }
         );
+        console.log(downloadUrl.data.data[0].id);
         const download = await formatClipUrl(downloadUrl?.data.data[0].thumbnail_url);
         return {
             download: download,
