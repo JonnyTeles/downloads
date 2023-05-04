@@ -19,6 +19,4 @@ export default async function youtubeDownloadApi(req: NextApiRequest,
         console.log(err);
         throw new ApiError(HttpStatusCode.InternalServerError, `Erro: ${err}`)
     }
-
-
 }

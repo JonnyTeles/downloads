@@ -1,20 +1,30 @@
 import Button from "./Button";
 import { iDownloadCard } from "@/interfaces/downloadCard.interface";
 import Icon from "./Icons";
+import FileSaver from 'file-saver';
+
 
 export default function DownloadCard(props: iDownloadCard) {
+  async function handleDownload(url: string, name: string) {
+   FileSaver.saveAs(url, `${name}.mp4`)
+  }
+
   const { link, youtube, twitter } = props;
   const downloadLinks = Object.entries(link || {});
   const downloadButtons =
     youtube === false ? (
-      <a key={props.link} download href={props.link} target="_blank">
+      <a key={props.link} download onClick={() => handleDownload(props.link, props.title)}>
         <Button color="green" icon={Icon("download")} className="flex-grow-0">
           Baixar
         </Button>
       </a>
     ) : (
       downloadLinks.map(([quality, url]) => (
-        <a key={quality} download href={url} target="_blank">
+        <a
+          key={quality}
+          download
+          onClick={() => handleDownload(url, props.title)}
+        >
           <Button color="green" icon={Icon("download")} className="m-1">
             Baixar {quality}
           </Button>

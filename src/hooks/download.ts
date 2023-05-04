@@ -35,7 +35,7 @@ export default function Download() {
                 } catch (err: any) {
                     alert(`Erro ao realizar o download: ${err.message}`);
                 }
-            } else if (url.includes('youtube')) {
+            } else if (url.includes('youtube') || url.includes('youtu.be')) {
                 try {
                     await youtubeDl(url)
                     showDownloadCard()
@@ -71,6 +71,7 @@ export default function Download() {
             channelLink: `https://www.twitch.tv/${res.channel}`,
             originalLink: url,
         })
+       // localStorage.setItem('historico', JSON.stringify(getRes()))
     }
 
     async function youtubeDl(url: string) {
