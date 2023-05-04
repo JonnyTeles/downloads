@@ -20,7 +20,7 @@ export default function Download() {
         originalLink: "",
     });
 
-    const { showDownloadCard, showForm, visibleDownloadCard, visibleForm } = ShowVisible()
+    const { showDownloadCard, showForm, showSpinner, visibleDownloadCard, visibleForm, visibleSpinner } = ShowVisible()
 
     async function handleUrl(url: string) {
         if (url.length === 0) {
@@ -28,27 +28,36 @@ export default function Download() {
             return
         } else {
             if (url.includes('twitch')) {
+                showSpinner()
                 try {
-                    await twitchDl(url)
-                    showDownloadCard()
-                    _setUrl('')
+                    await twitchDl(url).then(() => {
+                        showDownloadCard()
+                        _setUrl('')
+                    })
                 } catch (err: any) {
+                    showForm()
                     alert(`Erro ao realizar o download: ${err.message}`);
                 }
             } else if (url.includes('youtube') || url.includes('youtu.be')) {
+                showSpinner()
                 try {
-                    await youtubeDl(url)
-                    showDownloadCard()
-                    _setUrl('')
+                    await youtubeDl(url).then(() => {
+                        showDownloadCard()
+                        _setUrl('')
+                    })
                 } catch (err: any) {
+                    showForm()
                     alert(`Erro ao realizar o download: ${err.message}`);
                 }
             } else if (url.includes('twitter')) {
+                showSpinner()
                 try {
-                    await twitterDl(url)
-                    showDownloadCard()
-                    _setUrl('')
+                    await twitterDl(url).then(() => {
+                        showDownloadCard()
+                        _setUrl('')
+                    })
                 } catch (err: any) {
+                    showForm()
                     alert(`Erro ao realizar o download: ${err.message}`);
                 }
             }
@@ -71,7 +80,7 @@ export default function Download() {
             channelLink: `https://www.twitch.tv/${res.channel}`,
             originalLink: url,
         })
-       // localStorage.setItem('historico', JSON.stringify(getRes()))
+        // localStorage.setItem('historico', JSON.stringify(getRes()))
     }
 
     async function youtubeDl(url: string) {
@@ -126,8 +135,10 @@ export default function Download() {
         _setUrl,
         handleUrl,
         showForm,
+        showSpinner,
         getRes,
         visibleDownloadCard,
         visibleForm,
+        visibleSpinner
     }
 }

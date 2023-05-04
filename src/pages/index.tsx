@@ -5,12 +5,19 @@ import DownloadCard from "./components/DownloadCard";
 import Layout from "./templates/Layout";
 import HandleKeyPress from "@/hooks/handleKeyPress";
 import SetIconType from "@/hooks/setIconType";
-import Image from "next/image";
 import Icon from "./components/Icons";
+import Spinner from "./components/Spinner";
 
 export default function Home() {
-  const { getUrl, getRes, _setUrl, handleUrl, visibleForm, showForm } =
-    Download();
+  const {
+    getUrl,
+    getRes,
+    _setUrl,
+    handleUrl,
+    showForm,
+    visibleForm,
+    visibleSpinner,
+  } = Download();
 
   const { _setIcon, getIcon, resetIcon } = SetIconType();
 
@@ -31,7 +38,9 @@ export default function Home() {
        `}
     >
       <Layout title="Download YouTube, Twitter, Twitch">
-        {visibleForm ? (
+        {visibleSpinner ? (
+          <Spinner color="purple" text="Buscando..." />
+        ) : visibleForm ? (
           <>
             <div className="flex justify-start p-1">
               <div className="flex-1">
