@@ -7,6 +7,7 @@ export async function twitterDownloader(url: string): Promise<iTwitterResponse> 
     try {
         const tweetMeta = await twtScraper.getTweetMeta(url)
         return {
+            id: tweetMeta.id,
             download: tweetMeta.media_url[0].url,
             favorite_count: tweetMeta.favorite_count,
             reply_count: tweetMeta.reply_count

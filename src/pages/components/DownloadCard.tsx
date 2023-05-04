@@ -1,19 +1,24 @@
 import Button from "./Button";
 import { iDownloadCard } from "@/interfaces/downloadCard.interface";
 import Icon from "./Icons";
-import FileSaver from 'file-saver';
-
+import FileSaver from "file-saver";
+import { Tweet } from "react-twitter-widgets";
 
 export default function DownloadCard(props: iDownloadCard) {
   async function handleDownload(url: string, name: string) {
-   FileSaver.saveAs(url, `${name}.mp4`)
+    FileSaver.saveAs(url, `${name}.mp4`);
   }
 
   const { link, youtube, twitter } = props;
   const downloadLinks = Object.entries(link || {});
+
   const downloadButtons =
     youtube === false ? (
-      <a key={props.link} download onClick={() => handleDownload(props.link, props.title)}>
+      <a
+        key={props.link}
+        download
+        onClick={() => handleDownload(props.link, props.title)}
+      >
         <Button color="green" icon={Icon("download")} className="flex-grow-0">
           Baixar
         </Button>
@@ -44,19 +49,7 @@ export default function DownloadCard(props: iDownloadCard) {
       >
         <div className="w-full max-w-md">
           <div className="p-6 ">
-            <a
-              href={props.originalUrl}
-              target="_blank"
-              className="inline-block"
-            >
-              <div className="font-bold text-xl mb-2 hover:text-purple-800">
-                {props.title}
-              </div>
-            </a>
-            <video width="500" height="240" controls>
-              <source src={props.link} type="video/mp4" />
-              Seu navegador não suporta a tag de vídeo.
-            </video>
+            <Tweet tweetId={props.thumb} />
             <p className=" text-base my-4 ">
               Favoritos: {props.views}
               <br />

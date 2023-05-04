@@ -95,11 +95,11 @@ export default function Download() {
 
     async function twitterDl(url: string) {
         const res = await twitterApiRequest(url)
-        const { download, favorite_count, reply_count } = res
+        const { download, favorite_count, reply_count, id } = res
         setDownloadInfo({
             channel: String(reply_count),
             download: download,
-            thumb: download,
+            thumb: id,
             title: 'Twitter Video',
             views: favorite_count,
             youtube: false,
