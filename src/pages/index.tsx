@@ -7,6 +7,7 @@ import HandleKeyPress from "@/hooks/handleKeyPress";
 import SetIconType from "@/hooks/setIconType";
 import Icon from "./components/Icons";
 import Spinner from "./components/Spinner";
+import SnackBar from "./components/Snackbar";
 
 export default function Home() {
   const {
@@ -17,25 +18,23 @@ export default function Home() {
     showForm,
     visibleForm,
     visibleSpinner,
+    closeSnackbar, 
+    message, 
+    type, 
+    open
   } = Download();
 
   const { _setIcon, getIcon, resetIcon } = SetIconType();
-
   const { handleKeyPress } = HandleKeyPress({ handleUrl });
-
   const icon = getIcon();
-  let path = "";
-  if (icon.type == "twitch") path = "icons/twitch.svg";
-  if (icon.type == "twitter") path = "icons/twitter.svg";
-  if (icon.type == "youtube") path = "icons/youtube.svg";
-
+  
   return (
     <div
       className={`
-      flex justify-center items-center min-h-screen
-      bg-gradient-to-r from-blue-500 to-blue-800
-      text-white h-auto
-       `}
+    flex justify-center items-center min-h-screen
+    bg-gradient-to-r from-blue-500 to-blue-800
+    text-white h-auto
+    `}
     >
       <Layout title="Download YouTube, Twitter, Twitch">
         {visibleSpinner ? (
@@ -45,9 +44,9 @@ export default function Home() {
             <div className="flex justify-start p-1">
               <div className="flex-1">
                 <div className="flex flex-wrap h-20 justify-start items-center p-2 -mt-8 flex-grow">
-                  {icon.type === "youtube" && <img src={path} alt="icon" />}
-                  {icon.type === "twitch" && <img src={path} alt="icon" />}
-                  {icon.type === "twitter" && <img src={path} alt="icon" />}
+                  {icon.type === "youtube" && <img src={icon.icon} alt="icon" />}
+                  {icon.type === "twitch" && <img src={icon.icon} alt="icon" />}
+                  {icon.type === "twitter" && <img src={icon.icon} alt="icon" />}
                   <p className="ml-2 text-2xl font-bold text-purple-700">
                     {icon.text !== ""
                       ? icon.text
@@ -70,6 +69,7 @@ export default function Home() {
                     {" "}
                     Pesquisar...{" "}
                   </Button>
+                  <SnackBar open={open} message={message} type={type} closeSnackbar={closeSnackbar} className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold" />
                 </div>
               </div>
             </div>

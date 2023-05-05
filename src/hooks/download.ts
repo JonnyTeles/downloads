@@ -4,6 +4,7 @@ import { twitchDownload } from "@/core/twitchDownload";
 import { iTwitchDownload } from "@/interfaces/twitchDownloadr.interface";
 import youtubeApiRequest from "@/core/youtubeApiRequest";
 import twitterApiRequest from "@/core/twitterApiRequest";
+import HandleSnackbar from "./handleSnackbar";
 
 export default function Download() {
 
@@ -21,10 +22,11 @@ export default function Download() {
     });
 
     const { showDownloadCard, showForm, showSpinner, visibleDownloadCard, visibleForm, visibleSpinner } = ShowVisible()
+    const { openSnackbar, closeSnackbar, message, open, type } = HandleSnackbar();
 
     async function handleUrl(url: string) {
         if (url.length === 0) {
-            alert('Campo url não pode ser vázio')
+            openSnackbar(`Campo URL não pode estar vázio`, 'error')
             return
         } else {
             if (url.includes('twitch')) {
@@ -36,7 +38,7 @@ export default function Download() {
                     })
                 } catch (err: any) {
                     showForm()
-                    alert(`Erro ao realizar o download: ${err.message}`);
+                    openSnackbar(`Erro ao realizar o download: ${err.message}`, 'error')
                 }
             } else if (url.includes('youtube') || url.includes('youtu.be')) {
                 showSpinner()
@@ -47,7 +49,7 @@ export default function Download() {
                     })
                 } catch (err: any) {
                     showForm()
-                    alert(`Erro ao realizar o download: ${err.message}`);
+                    openSnackbar(`Erro ao realizar o download: ${err.message}`, 'error')
                 }
             } else if (url.includes('twitter')) {
                 showSpinner()
@@ -58,11 +60,11 @@ export default function Download() {
                     })
                 } catch (err: any) {
                     showForm()
-                    alert(`Erro ao realizar o download: ${err.message}`);
+                    openSnackbar(`Erro ao realizar o download: ${err.message}`, 'error')
                 }
             }
             else {
-                alert(`URL INVÁLIDA`);
+                openSnackbar(`URL INVÁLIDA`, 'error')
             }
         }
     }
@@ -139,6 +141,11 @@ export default function Download() {
         getRes,
         visibleDownloadCard,
         visibleForm,
-        visibleSpinner
+        visibleSpinner, 
+        openSnackbar, 
+        closeSnackbar, 
+        message, 
+        open, 
+        type
     }
 }
