@@ -1,5 +1,5 @@
 import { iSnackbar } from "@/interfaces/snackbar.interface";
-import { AlertProps, Snackbar, Stack, createTheme } from "@mui/material";
+import { AlertProps, Snackbar, Stack } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import Slide, { SlideProps } from "@mui/material/Slide";
 import { forwardRef } from "react";
@@ -22,7 +22,7 @@ export default function SnackBar(props: iSnackbar) {
         <Stack spacing={2} sx={{ width: "100%" }}>
       <Snackbar
         open={props.open}
-        autoHideDuration={6000}
+        autoHideDuration={10000}
         onClose={props.closeSnackbar}
         anchorOrigin={{ horizontal: "center", vertical: "top" }}
         TransitionComponent={TransitionDown}

@@ -19,7 +19,7 @@ export default function DownloadCard(props: iDownloadCard) {
         download
         onClick={() => handleDownload(props.link, props.title)}
       >
-        <Button color="green" icon={Icon("download")} className="flex-grow-0">
+        <Button color="purple" icon={Icon("download")} className="flex-grow-0">
           Baixar
         </Button>
       </a>
@@ -30,7 +30,7 @@ export default function DownloadCard(props: iDownloadCard) {
           download
           onClick={() => handleDownload(url, props.title)}
         >
-          <Button color="green" icon={Icon("download")} className="m-1">
+          <Button color="purple" icon={Icon("download")} className="m-1">
             Baixar {quality}
           </Button>
         </a>
@@ -43,25 +43,27 @@ export default function DownloadCard(props: iDownloadCard) {
         className={`
         flex justify-center 
         bg-gradient-to-r from-blue-500 to-blue-700
-        w-full
+        flex-col-reverse
         text-white
       `}
       >
-        <div className="w-full max-w-md">
-          <div className="p-6 ">
+        <div className="w-full justify-center flex">
+          <div className="p-6 justify-center">
             <Tweet tweetId={props.thumb} />
             <p className=" text-base my-4 ">
               Favoritos: {props.views}
               <br />
               Replys: {props.channel}
             </p>
-            <div className="flex justify-between">
+            <div className="align-middle justify-around flex m-1">
               {downloadButtons}
-              <Button color="red" icon={Icon("back")} onClick={props.back}>
-                Voltar
-              </Button>
             </div>
           </div>
+        </div>
+        <div className="self-end pt-2 pr-2">
+          <Button color="purple" icon={Icon("back")} onClick={props.back}>
+            Voltar
+          </Button>
         </div>
       </div>
     ) : youtube === true ? (
@@ -69,12 +71,12 @@ export default function DownloadCard(props: iDownloadCard) {
         className={`
         flex justify-center 
         bg-gradient-to-r from-blue-500 to-blue-700
-        w-full
+        flex-col-reverse
         text-white
       `}
       >
-        <div className="w-full max-w-md">
-          <div className="p-6 ">
+        <div className="justify-center items-center flex">
+          <div className="p-6 justify-center">
             <a
               href={props.originalUrl}
               target="_blank"
@@ -100,13 +102,13 @@ export default function DownloadCard(props: iDownloadCard) {
             </p>
             <div className="align-middle justify-around flex m-1">
               {downloadButtons}
-              <div className="m-1">
-                <Button color="red" icon={Icon("back")} onClick={props.back}>
-                  Voltar
-                </Button>
-              </div>
             </div>
           </div>
+        </div>
+        <div className="self-end pt-2 pr-2">
+          <Button color="purple" icon={Icon("back")} onClick={props.back}>
+            Voltar
+          </Button>
         </div>
       </div>
     ) : (
@@ -114,19 +116,18 @@ export default function DownloadCard(props: iDownloadCard) {
         className={`
         flex justify-center 
         bg-gradient-to-r from-blue-500 to-blue-700
-        w-full
+        flex-col-reverse
         text-white
       `}
       >
-        <div className="w-full max-w-md">
-          <div className="p-6 ">
+        <div className="w-full justify-center flex">
+          <div className="p-6 justify-center">
             <a
               href={props.originalUrl}
               target="_blank"
-              className="inline-block"
+              className="flex justify-center"
             >
-              <div className="font-bold text-xl mb-2 hover:text-purple-800">
-              </div>
+              <div className="font-bold text-xl mb-2 hover:text-purple-800">{props.title}</div>
             </a>
             <img
               className="w-full"
@@ -148,13 +149,13 @@ export default function DownloadCard(props: iDownloadCard) {
             </p>
             <div className="align-middle justify-around flex m-1">
               {downloadButtons}
-              <div className="m-1">
-                <Button color="red" icon={Icon("back")} onClick={props.back}>
-                  Voltar
-                </Button>
-              </div>
             </div>
           </div>
+        </div>
+        <div className="self-end pt-2 pr-2">
+          <Button color="purple" icon={Icon("back")} onClick={props.back}>
+            Voltar
+          </Button>
         </div>
       </div>
     );
