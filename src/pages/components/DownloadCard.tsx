@@ -4,10 +4,45 @@ import Icon from "./Icons";
 import FileSaver from "file-saver";
 import { Tweet } from "react-twitter-widgets";
 import YouTube from "react-youtube";
+import axios from "axios";
+import SnackBar from "./Snackbar";
+import Download from "@/hooks/download";
 
 export default function DownloadCard(props: iDownloadCard) {
-  async function handleDownload(url: string, name: string) {
-    FileSaver.saveAs(url, `${name}.mp4`);
+
+  const {
+    openSnackbar,
+    closeSnackbar, 
+    message, 
+    type, 
+    open
+  } = Download();
+
+  async function handleDownload(url: string, name: string, quality: string, youtube: boolean) {
+    openSnackbar(`O downlaod começará em breve...`, 'success')
+    if(youtube){
+      if (quality === "mp3") {
+        axios
+          .get(`${process.env.NEXT_PUBLIC_AWS_API}/youtube/download2?url=${url}`, {
+            responseType: "blob",
+          })
+          .then((response) => {
+            const blob = new Blob([response.data], { type: "msuic/mp3" });
+            FileSaver.saveAs(blob, `${name}.mp3`);
+          });
+      } else {
+        axios
+          .get(`${process.env.NEXT_PUBLIC_AWS_API}/youtube/download?url=${url}`, {
+            responseType: "blob",
+          })
+          .then((response) => {
+            const blob = new Blob([response.data], { type: "video/mp4" });
+            FileSaver.saveAs(blob, `${name}.mp4`);
+          });
+      }
+    } else {
+      FileSaver.saveAs(url, `${name}.mp4`);
+    }
   }
 
   const { link, youtube, twitter } = props;
@@ -17,18 +52,20 @@ export default function DownloadCard(props: iDownloadCard) {
       <a
         key={props.link}
         download
-        onClick={() => handleDownload(props.link, props.title)}
+        onClick={() => handleDownload(props.link, props.title, "mp4", false)}
       >
         <Button color="purple" icon={Icon("download")} className="flex-grow-0">
           Baixar
         </Button>
       </a>
     ) : (
-      downloadLinks.map(([quality, url]) => (
+      downloadLinks.map(([quality]) => (
         <a
           key={quality}
           download
-          onClick={() => handleDownload(url, props.title)}
+          onClick={() =>
+            handleDownload(props.originalUrl, props.title, quality, true)
+          }
         >
           <Button color="purple" icon={Icon("download")} className="m-1">
             Baixar {quality}
@@ -47,8 +84,9 @@ export default function DownloadCard(props: iDownloadCard) {
         text-white
       `}
       >
+         <SnackBar open={open} message={message} type={type} closeSnackbar={closeSnackbar} className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold" />
         <div className="w-full justify-center flex">
-          <div className="p-6 justify-center">
+          <div className="p-6 justify-center h-full">
             <Tweet tweetId={props.thumb} />
             <p className=" text-base my-4 ">
               Favoritos: {props.views}
@@ -75,6 +113,7 @@ export default function DownloadCard(props: iDownloadCard) {
         text-white
       `}
       >
+         <SnackBar open={open} message={message} type={type} closeSnackbar={closeSnackbar} className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold" />
         <div className="justify-center items-center flex">
           <div className="p-6 justify-center">
             <a
@@ -120,6 +159,7 @@ export default function DownloadCard(props: iDownloadCard) {
         text-white
       `}
       >
+         <SnackBar open={open} message={message} type={type} closeSnackbar={closeSnackbar} className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold" />
         <div className="w-full justify-center flex">
           <div className="p-6 justify-center">
             <a
@@ -127,7 +167,9 @@ export default function DownloadCard(props: iDownloadCard) {
               target="_blank"
               className="flex justify-center"
             >
-              <div className="font-bold text-xl mb-2 hover:text-purple-800">{props.title}</div>
+              <div className="font-bold text-xl mb-2 hover:text-purple-800">
+                {props.title}
+              </div>
             </a>
             <img
               className="w-full"

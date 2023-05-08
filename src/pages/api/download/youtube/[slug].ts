@@ -3,6 +3,7 @@ import { youtubeDownloader } from '../../utils/youtubeDownload'
 import { HttpStatusCode } from 'axios'
 import { ApiError } from 'next/dist/server/api-utils'
 
+
 export default async function youtubeDownloadApi(req: NextApiRequest,
     res: any) {
     const url = req.query.yurl
@@ -20,3 +21,5 @@ export default async function youtubeDownloadApi(req: NextApiRequest,
         throw new ApiError(HttpStatusCode.InternalServerError, `Erro: ${err}`)
     }
 }
+
+
