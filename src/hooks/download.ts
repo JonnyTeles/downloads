@@ -35,10 +35,11 @@ export default function Download() {
                     await twitchDl(url).then(() => {
                         showDownloadCard()
                         _setUrl('')
+                        closeSnackbar()
                     })
                 } catch (err: any) {
                     showForm()
-                    openSnackbar(`Erro ao realizar o download: ${err.message}`, 'error')
+                    openSnackbar(`Erro ao realizar o download: ${err.data}`, 'error')
                 }
             } else if (url.includes('youtube') || url.includes('youtu.be')) {
                 showSpinner()
@@ -46,6 +47,7 @@ export default function Download() {
                     await youtubeDl(url).then(() => {
                         showDownloadCard()
                         _setUrl('')
+                        closeSnackbar()
                     })
                 } catch (err: any) {
                     showForm()
@@ -57,10 +59,11 @@ export default function Download() {
                     await twitterDl(url).then(() => {
                         showDownloadCard()
                         _setUrl('')
+                        closeSnackbar()
                     })
                 } catch (err: any) {
                     showForm()
-                    openSnackbar(`Erro ao realizar o download: ${err.message}`, 'error')
+                    openSnackbar(`Erro ao realizar o download: ${err.data}`, 'error')
                 }
             }
             else {

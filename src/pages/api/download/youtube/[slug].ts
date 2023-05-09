@@ -16,9 +16,9 @@ export default async function youtubeDownloadApi(req: NextApiRequest,
     try {
         const response = await youtubeDownloader(String(url))
         return res.status(200).send({ response })
-    } catch (err) {
+    } catch (err: any) {
         console.log(err);
-        throw new ApiError(HttpStatusCode.InternalServerError, `Erro: ${err}`)
+        return res.status(400).send(err.message);
     }
 }
 

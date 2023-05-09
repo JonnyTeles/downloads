@@ -5,10 +5,11 @@ export default function Button(props: iButton) {
   return (
     <button
       onClick={props.onClick}
+      disabled={props.disabled}
       className={`
       flex justify-center items-center
-      bg-gradient-to-r from-${color}-400 to-${color}-700
-        text-white px-4 py-2 rounded-md
+      bg-${color}-700
+     text-white px-4 py-2 rounded-md
         ${props.className}
         `}
     >

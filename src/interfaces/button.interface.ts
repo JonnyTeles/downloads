@@ -4,4 +4,5 @@ export interface iButton {
     className?: string
     icon?: any
     onClick?: () => void
+    disabled?: boolean
 }

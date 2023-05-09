@@ -66,6 +66,7 @@ export default function Home() {
                     onClick={() => handleUrl(String(getUrl()))}
                     icon={Icon("search")}
                     color="purple"
+                    className="hover:bg-purple-500"
                   >
                     {" "}
                     Pesquisar...{" "}

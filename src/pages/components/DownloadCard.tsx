@@ -7,41 +7,56 @@ import YouTube from "react-youtube";
 import axios from "axios";
 import SnackBar from "./Snackbar";
 import Download from "@/hooks/download";
+import { useState } from "react";
 
 export default function DownloadCard(props: iDownloadCard) {
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [className, setClassName] = useState("m-1 hover:bg-purple-500");
+  const { openSnackbar, closeSnackbar, message, type, open } = Download();
 
-  const {
-    openSnackbar,
-    closeSnackbar, 
-    message, 
-    type, 
-    open
-  } = Download();
-
-  async function handleDownload(url: string, name: string, quality: string, youtube: boolean) {
-    openSnackbar(`O downlaod começará em breve...`, 'success')
-    if(youtube){
+  async function handleDownload(
+    url: string,
+    name: string,
+    quality: string,
+    youtube: boolean
+  ) {
+    setIsDownloading(true);
+    setClassName("m-1 bg-gray-500");
+    openSnackbar(`O downlaod começará em breve...`, "success");
+    if (youtube) {
       if (quality === "mp3") {
         axios
-          .get(`${process.env.NEXT_PUBLIC_AWS_API}/youtube/download2?url=${url}`, {
-            responseType: "blob",
-          })
+          .get(
+            `${process.env.NEXT_PUBLIC_AWS_API}/youtube/download2?url=${url}`,
+            {
+              responseType: "blob",
+            }
+          )
           .then((response) => {
             const blob = new Blob([response.data], { type: "msuic/mp3" });
             FileSaver.saveAs(blob, `${name}.mp3`);
+            setIsDownloading(false);
+            setClassName("m-1 hover:bg-purple-500");
           });
       } else {
         axios
-          .get(`${process.env.NEXT_PUBLIC_AWS_API}/youtube/download?url=${url}`, {
-            responseType: "blob",
-          })
+          .get(
+            `${process.env.NEXT_PUBLIC_AWS_API}/youtube/download?url=${url}`,
+            {
+              responseType: "blob",
+            }
+          )
           .then((response) => {
             const blob = new Blob([response.data], { type: "video/mp4" });
             FileSaver.saveAs(blob, `${name}.mp4`);
+            setIsDownloading(false);
+            setClassName("m-1 hover:bg-purple-500");
           });
       }
     } else {
       FileSaver.saveAs(url, `${name}.mp4`);
+      setIsDownloading(false);
+      setClassName("m-1 hover:bg-purple-500");
     }
   }
 
@@ -54,23 +69,28 @@ export default function DownloadCard(props: iDownloadCard) {
         download
         onClick={() => handleDownload(props.link, props.title, "mp4", false)}
       >
-        <Button color="purple" icon={Icon("download")} className="flex-grow-0">
+        <Button
+          color="purple"
+          icon={Icon("download")}
+          className="flex-grow-0 hover:bg-purple-500"
+        >
           Baixar
         </Button>
       </a>
     ) : (
       downloadLinks.map(([quality]) => (
-        <a
+        <Button
           key={quality}
-          download
+          color="purple"
+          icon={Icon("download")}
+          className={className}
+          disabled={isDownloading}
           onClick={() =>
             handleDownload(props.originalUrl, props.title, quality, true)
           }
         >
-          <Button color="purple" icon={Icon("download")} className="m-1">
-            Baixar {quality}
-          </Button>
-        </a>
+          {isDownloading ? "Baixando..." : `Baixar ${quality}`}
+        </Button>
       ))
     );
 
@@ -84,9 +104,15 @@ export default function DownloadCard(props: iDownloadCard) {
         text-white
       `}
       >
-         <SnackBar open={open} message={message} type={type} closeSnackbar={closeSnackbar} className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold" />
-        <div className="w-full justify-center flex">
-          <div className="p-6 justify-center h-full">
+        <SnackBar
+          open={open}
+          message={message}
+          type={type}
+          closeSnackbar={closeSnackbar}
+          className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold"
+        />
+        <div className="justify-center flex">
+          <div className="p-5">
             <Tweet tweetId={props.thumb} />
             <p className=" text-base my-4 ">
               Favoritos: {props.views}
@@ -99,7 +125,12 @@ export default function DownloadCard(props: iDownloadCard) {
           </div>
         </div>
         <div className="self-end pt-2 pr-2">
-          <Button color="purple" icon={Icon("back")} onClick={props.back}>
+          <Button
+            color="purple"
+            icon={Icon("back")}
+            onClick={props.back}
+            className="hover:bg-purple-500"
+          >
             Voltar
           </Button>
         </div>
@@ -113,7 +144,13 @@ export default function DownloadCard(props: iDownloadCard) {
         text-white
       `}
       >
-         <SnackBar open={open} message={message} type={type} closeSnackbar={closeSnackbar} className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold" />
+        <SnackBar
+          open={open}
+          message={message}
+          type={type}
+          closeSnackbar={closeSnackbar}
+          className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold"
+        />
         <div className="justify-center items-center flex">
           <div className="p-6 justify-center">
             <a
@@ -145,7 +182,12 @@ export default function DownloadCard(props: iDownloadCard) {
           </div>
         </div>
         <div className="self-end pt-2 pr-2">
-          <Button color="purple" icon={Icon("back")} onClick={props.back}>
+          <Button
+            color="purple"
+            icon={Icon("back")}
+            onClick={props.back}
+            className="hover:bg-purple-500"
+          >
             Voltar
           </Button>
         </div>
@@ -159,7 +201,13 @@ export default function DownloadCard(props: iDownloadCard) {
         text-white
       `}
       >
-         <SnackBar open={open} message={message} type={type} closeSnackbar={closeSnackbar} className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold" />
+        <SnackBar
+          open={open}
+          message={message}
+          type={type}
+          closeSnackbar={closeSnackbar}
+          className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold"
+        />
         <div className="w-full justify-center flex">
           <div className="p-6 justify-center">
             <a
@@ -195,7 +243,12 @@ export default function DownloadCard(props: iDownloadCard) {
           </div>
         </div>
         <div className="self-end pt-2 pr-2">
-          <Button color="purple" icon={Icon("back")} onClick={props.back}>
+          <Button
+            color="purple"
+            icon={Icon("back")}
+            onClick={props.back}
+            className="hover:bg-purple-500"
+          >
             Voltar
           </Button>
         </div>

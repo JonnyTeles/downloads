@@ -13,8 +13,8 @@ export default async function youtubeApiRequest(url: string): Promise<iYoutubeRe
             viewCount: viewCount,
             channelUrl: channelUrl
         }
-    } catch (err) {
+    } catch (err: any) {
         console.error(err);
-        throw new Error(`${err}`);
+        throw new Error(`${err.response.data}`);
     }
 }

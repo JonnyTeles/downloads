@@ -7,6 +7,8 @@ export async function youtubeDownloader(url: string): Promise<iYoutubeResponse> 
     const videoFormats = ytdl.filterFormats(info.formats, 'audioandvideo');
     const audio = ytdl.filterFormats(info.formats, 'audioonly');
     let mp3;
+    
+    if(info.videoDetails.lengthSeconds > 2100 ) throw new Error('O vídeo não pode ser maior que 35 minutos')
 
     for (let i = 0; i < audio.length; i++) {
         if (audio[i].mimeType?.includes('audio/mp4')) {
