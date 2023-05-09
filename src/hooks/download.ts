@@ -39,7 +39,7 @@ export default function Download() {
                     })
                 } catch (err: any) {
                     showForm()
-                    openSnackbar(`Erro ao realizar o download: ${err.data}`, 'error')
+                    openSnackbar(`Erro ao realizar o download`, 'error')
                 }
             } else if (url.includes('youtube') || url.includes('youtu.be')) {
                 showSpinner()
@@ -50,8 +50,14 @@ export default function Download() {
                         closeSnackbar()
                     })
                 } catch (err: any) {
-                    showForm()
-                    openSnackbar(`Erro ao realizar o download: ${err.message}`, 'error')
+                    console.error(err);
+                    if (err instanceof Error && err.message === 'O vídeo não pode ser maior que 35 minutos') {
+                        showForm()
+                        openSnackbar(`O vídeo não pode ser maior que 35 minutos`, 'error')
+                    } else {
+                        showForm()
+                        openSnackbar(`Erro ao realizar o download`, 'error')
+                    }
                 }
             } else if (url.includes('twitter')) {
                 showSpinner()
@@ -63,7 +69,7 @@ export default function Download() {
                     })
                 } catch (err: any) {
                     showForm()
-                    openSnackbar(`Erro ao realizar o download: ${err.data}`, 'error')
+                    openSnackbar(`Erro ao realizar o download`, 'error')
                 }
             }
             else {
@@ -144,11 +150,11 @@ export default function Download() {
         getRes,
         visibleDownloadCard,
         visibleForm,
-        visibleSpinner, 
-        openSnackbar, 
-        closeSnackbar, 
-        message, 
-        open, 
+        visibleSpinner,
+        openSnackbar,
+        closeSnackbar,
+        message,
+        open,
         type
     }
 }

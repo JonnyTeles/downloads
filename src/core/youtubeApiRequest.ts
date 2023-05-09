@@ -14,7 +14,11 @@ export default async function youtubeApiRequest(url: string): Promise<iYoutubeRe
             channelUrl: channelUrl
         }
     } catch (err: any) {
-        console.error(err);
-        throw new Error(`${err.response.data}`);
+        if (err.response.data.error === 'O vídeo não pode ser maior que 35 minutos') {
+            throw new Error(err.response.data.error)
+        } else {
+            console.error(err);
+            throw new Error(`${err}`);
+        }
     }
 }
