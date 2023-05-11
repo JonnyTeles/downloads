@@ -117,7 +117,7 @@ export default function DownloadCard(props: iDownloadCard) {
             <p className=" text-base my-4 ">
               Favoritos: {props.views}
               <br />
-              Replys: {props.channel}
+              Replys: {props.title}
             </p>
             <div className="align-middle justify-around flex m-1">
               {downloadButtons}

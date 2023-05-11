@@ -7,10 +7,10 @@ module.exports = {
   ],
   safelist: [
     {
-      pattern: /(from|to)-(green|blue|gray|red|purple)-(400|700)/
+      pattern: /(from|to)-(green|blue|gray|red|purple)-(50|100|200|300|400|500|600|700|800|900|950)/
     },
     {
-      pattern: /(bg|color)-(green|blue|gray|red|purple)-(400|700|500|600)/
+      pattern: /(bg|color)-(green|blue|gray|red|purple)-(50|100|200|300|400|500|600|700|800|900|950)/
     }
   ],
   theme: {

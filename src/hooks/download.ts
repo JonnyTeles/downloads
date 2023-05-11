@@ -80,7 +80,7 @@ export default function Download() {
 
     async function twitchDl(url: string) {
         const res: iTwitchDownload = await twitchDownload(url)
-        setDownloadInfo({
+        const newDownloadInfo = {
             channel: res.channel,
             download: res.download,
             thumb: res.thumb,
@@ -90,8 +90,16 @@ export default function Download() {
             twitter: false,
             channelLink: `https://www.twitch.tv/${res.channel}`,
             originalLink: url,
-        })
-        // localStorage.setItem('historico', JSON.stringify(getRes()))
+        }
+        const history = JSON.parse(localStorage.getItem('historico') || '[]')
+        const newHistory = [...history, newDownloadInfo]
+        localStorage.setItem('historico', JSON.stringify(newHistory))
+        setDownloadInfo(newDownloadInfo)
+    }
+
+    function showHistory() {
+        const history = JSON.parse(localStorage.getItem('historico') || '[]')
+        console.log(history)
     }
 
     async function youtubeDl(url: string) {
@@ -100,7 +108,7 @@ export default function Download() {
         for (const format of downloadUrl) {
             downloadLinks[format.quality] = format.url;
         }
-        setDownloadInfo({
+        const newDownloadInfo = {
             channel: ownerChannelName,
             download: downloadLinks,
             thumb: videoId,
@@ -110,23 +118,31 @@ export default function Download() {
             twitter: false,
             channelLink: channelUrl,
             originalLink: url,
-        })
+        }
+        const history = JSON.parse(localStorage.getItem('historico') || '[]')
+        const newHistory = [...history, newDownloadInfo]
+        localStorage.setItem('historico', JSON.stringify(newHistory))
+        setDownloadInfo(newDownloadInfo)
     }
 
     async function twitterDl(url: string) {
         const res = await twitterApiRequest(url)
         const { download, favorite_count, reply_count, id } = res
-        setDownloadInfo({
-            channel: String(reply_count),
+        const newDownloadInfo = {
+            channel: 'Twitter Video',
             download: download,
             thumb: id,
-            title: 'Twitter Video',
+            title: String(reply_count),
             views: favorite_count,
             youtube: false,
             twitter: true,
             channelLink: '',
             originalLink: url,
-        })
+        }
+        const history = JSON.parse(localStorage.getItem('historico') || '[]')
+        const newHistory = [...history, newDownloadInfo]
+        localStorage.setItem('historico', JSON.stringify(newHistory))
+        setDownloadInfo(newDownloadInfo)
     }
 
     function _setUrl(url: string) {

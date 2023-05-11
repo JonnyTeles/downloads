@@ -18,16 +18,16 @@ export default function Home() {
     showForm,
     visibleForm,
     visibleSpinner,
-    closeSnackbar, 
-    message, 
-    type, 
-    open
+    closeSnackbar,
+    message,
+    type,
+    open,
   } = Download();
 
   const { _setIcon, getIcon, resetIcon } = SetIconType();
   const { handleKeyPress } = HandleKeyPress({ handleUrl });
   const icon = getIcon();
-  
+
   return (
     <div
       className={`
@@ -44,9 +44,13 @@ export default function Home() {
             <div className="flex justify-start p-1">
               <div className="flex-1">
                 <div className="flex flex-wrap h-20 justify-start items-center p-2 -mt-8 flex-grow">
-                  {icon.type === "youtube" && <img src={icon.icon} alt="icon" />}
+                  {icon.type === "youtube" && (
+                    <img src={icon.icon} alt="icon" />
+                  )}
                   {icon.type === "twitch" && <img src={icon.icon} alt="icon" />}
-                  {icon.type === "twitter" && <img src={icon.icon} alt="icon" />}
+                  {icon.type === "twitter" && (
+                    <img src={icon.icon} alt="icon" />
+                  )}
                   <p className="ml-2 text-2xl font-bold text-purple-700">
                     {icon.text !== ""
                       ? icon.text
@@ -71,7 +75,13 @@ export default function Home() {
                     {" "}
                     Pesquisar...{" "}
                   </Button>
-                  <SnackBar open={open} message={message} type={type} closeSnackbar={closeSnackbar} className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold" />
+                  <SnackBar
+                    open={open}
+                    message={message}
+                    type={type}
+                    closeSnackbar={closeSnackbar}
+                    className="bg-gradient-to-r from-purple-600 to-purple-800 text-white bg-gradient font-bold"
+                  />
                 </div>
               </div>
             </div>

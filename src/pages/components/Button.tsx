@@ -2,13 +2,14 @@ import { iButton } from "@/interfaces/button.interface";
 
 export default function Button(props: iButton) {
   const color = props.color ?? "blue";
+  const colorVariant = props.colorVariant ?? "700"
   return (
     <button
       onClick={props.onClick}
       disabled={props.disabled}
       className={`
       flex justify-center items-center
-      bg-${color}-700
+      bg-${color}-${colorVariant}
      text-white px-4 py-2 rounded-md
         ${props.className}
         `}
