@@ -6,6 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from './Button';
 import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@emotion/react';
 
 export default function AlertDialog(props: any) {
   const [open, setOpen] = React.useState(false);
@@ -42,9 +43,11 @@ export default function AlertDialog(props: any) {
           <hr className="border-2 border-purple-500" />
         </DialogTitle>
         <DialogContent className='text-purple-500 mb-1'>
-          <DialogContentText id="alert-dialog-description">
+            <ThemeProvider theme={customTheme}>
+          <DialogContentText id="alert-dialog-description" color="#a855f7">
          {props.dialog}
           </DialogContentText>
+            </ThemeProvider>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color='purple' colorVariant='500'>Cancelar</Button>
