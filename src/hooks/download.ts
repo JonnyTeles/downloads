@@ -92,14 +92,14 @@ export default function Download() {
             originalLink: url,
         }
         const history = JSON.parse(localStorage.getItem('historico') || '[]')
-        const newHistory = [...history, newDownloadInfo]
-        localStorage.setItem('historico', JSON.stringify(newHistory))
-        setDownloadInfo(newDownloadInfo)
-    }
+        const hasVideoInHistory = history.some((video: any) => video.originalLink === newDownloadInfo.originalLink)
 
-    function showHistory() {
-        const history = JSON.parse(localStorage.getItem('historico') || '[]')
-        console.log(history)
+        if (!hasVideoInHistory) {
+            const newHistory = [...history, newDownloadInfo]
+            localStorage.setItem('historico', JSON.stringify(newHistory))
+        }
+
+        setDownloadInfo(newDownloadInfo)
     }
 
     async function youtubeDl(url: string) {
@@ -120,8 +120,13 @@ export default function Download() {
             originalLink: url,
         }
         const history = JSON.parse(localStorage.getItem('historico') || '[]')
-        const newHistory = [...history, newDownloadInfo]
-        localStorage.setItem('historico', JSON.stringify(newHistory))
+        const hasVideoInHistory = history.some((video: any) => video.originalLink === newDownloadInfo.originalLink)
+
+        if (!hasVideoInHistory) {
+            const newHistory = [...history, newDownloadInfo]
+            localStorage.setItem('historico', JSON.stringify(newHistory))
+        }
+
         setDownloadInfo(newDownloadInfo)
     }
 
@@ -139,9 +144,15 @@ export default function Download() {
             channelLink: '',
             originalLink: url,
         }
+
         const history = JSON.parse(localStorage.getItem('historico') || '[]')
-        const newHistory = [...history, newDownloadInfo]
-        localStorage.setItem('historico', JSON.stringify(newHistory))
+        const hasVideoInHistory = history.some((video: any) => video.originalLink === newDownloadInfo.originalLink)
+
+        if (!hasVideoInHistory) {
+            const newHistory = [...history, newDownloadInfo]
+            localStorage.setItem('historico', JSON.stringify(newHistory))
+        }
+
         setDownloadInfo(newDownloadInfo)
     }
 

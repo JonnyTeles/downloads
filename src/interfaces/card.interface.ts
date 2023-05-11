@@ -6,5 +6,6 @@ export interface iCard {
     description?: string,
     buttonText: string,
     youtube: boolean,
-    twitter: boolean
+    twitter: boolean,
+    onClick?: () => void
 }

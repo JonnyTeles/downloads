@@ -21,6 +21,10 @@ export default function HistoricPage() {
     setIsHistoricEmpty(true);
   };
 
+  function handleClick(link: string) {
+    window.open(link, "_blank");
+  }
+
   const twitterHistoric = getHistoric().filter(
     (item: iHistoric) => item.twitter
   );
@@ -40,7 +44,7 @@ export default function HistoricPage() {
       `}
     >
       <Layout title="Histórico de pesquisas">
-           <SnackBar
+        <SnackBar
           open={open}
           message={message}
           type={type}
@@ -60,7 +64,10 @@ export default function HistoricPage() {
                   dialog="Deseja realmente apagar todo seu histórico de buscas?"
                   dialogTitle="Limpar Histórico"
                   dialogButton="Apagar"
-                  onClose={() => {clearHistoric(), openSnackbar('Histórico apagado com sucesso', 'success')}}
+                  onClose={() => {
+                    clearHistoric(),
+                      openSnackbar("Histórico apagado com sucesso", "success");
+                  }}
                 />
               )}
             </div>
@@ -82,28 +89,7 @@ export default function HistoricPage() {
                         height="240"
                         youtube={true}
                         twitter={false}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-
-              {twitterHistoric.length > 0 && (
-                <>
-                  <h2 className="mt-8 mb-4 text-2xl font-bold text-purple-700 text-center">
-                    Twitter
-                  </h2>
-                  <div className="flex flex-wrap gap-4 justify-center">
-                    {twitterHistoric.map((item: iHistoric, index) => (
-                      <ImgMediaCard
-                        key={index}
-                        title={item.channel}
-                        buttonText="Visualizar Completo"
-                        image={item.thumb}
-                        alt={item.title}
-                        height="240"
-                        twitter={true}
-                        youtube={false}
+                        onClick={() => handleClick(item.originalLink)}
                       />
                     ))}
                   </div>
@@ -127,6 +113,30 @@ export default function HistoricPage() {
                         height="240"
                         twitter={false}
                         youtube={false}
+                        onClick={() => handleClick(item.originalLink)}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {twitterHistoric.length > 0 && (
+                <>
+                  <h2 className="mt-8 mb-4 text-2xl font-bold text-purple-700 text-center">
+                    Twitter
+                  </h2>
+                  <div className="flex flex-wrap gap-4 justify-center">
+                    {twitterHistoric.map((item: iHistoric, index) => (
+                      <ImgMediaCard
+                        key={index}
+                        title={item.channel}
+                        buttonText="Visualizar Completo"
+                        image={item.thumb}
+                        alt={item.title}
+                        height="240"
+                        twitter={true}
+                        youtube={false}
+                        onClick={() => handleClick(item.originalLink)}
                       />
                     ))}
                   </div>
