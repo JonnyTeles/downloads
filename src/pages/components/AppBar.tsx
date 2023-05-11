@@ -90,7 +90,7 @@ function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu} className="hover:bg-purple-500">
-                            <Link href={page === "Inicio" ? "/" : "/historic"} key={page}>
+                            <Link href={page === "Início" ? "/" : "/historic"} key={page}>
                   <Typography textAlign="center">{page}</Typography>
                   </Link>
                 </MenuItem>
