@@ -33,7 +33,7 @@ export default function AlertDialog(props: any) {
           <hr className="border-2 border-purple-500" />
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description" className='text-purple-600 mb-1'>
+          <DialogContentText id="alert-dialog-description" className='text-purple-700 mb-1'>
          {props.dialog}
           </DialogContentText>
         </DialogContent>
