@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import Button from "./components/Button";
 import Layout from "./templates/Layout";
 import useHistoric from "@/hooks/historic";
 import { iHistoric } from "@/interfaces/historic.interface";

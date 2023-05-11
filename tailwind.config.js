@@ -11,6 +11,9 @@ module.exports = {
     },
     {
       pattern: /(bg|color)-(green|blue|gray|red|purple)-(50|100|200|300|400|500|600|700|800|900|950)/
+    },
+    {
+      pattern: /(text|mb)-(purple-600|1)/
     }
   ],
   theme: {
