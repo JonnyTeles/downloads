@@ -5,9 +5,18 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from './Button';
+import { createTheme } from '@mui/material/styles';
 
 export default function AlertDialog(props: any) {
   const [open, setOpen] = React.useState(false);
+
+  const customTheme = createTheme({
+   palette: {
+    primary: {
+        main: '#a855f7'
+    }
+   }
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,8 +41,8 @@ export default function AlertDialog(props: any) {
           {props.dialogTitle}
           <hr className="border-2 border-purple-500" />
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description" className='text-purple-700 mb-1'>
+        <DialogContent className='text-purple-500 mb-1'>
+          <DialogContentText id="alert-dialog-description">
          {props.dialog}
           </DialogContentText>
         </DialogContent>
