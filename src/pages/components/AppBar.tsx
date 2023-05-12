@@ -23,8 +23,23 @@ function ResponsiveAppBar() {
             primary: {
                 main: '#6b21a8'
             }
+        },
+        components: {
+          MuiMenuItem: {
+            styleOverrides: {
+              root: {
+               ":hover": {
+                backgroundColor: '#a855f7',
+                color: 'white'
+               }
+              }
+            }
+          }
         }
     })
+    const hover = createTheme({
+     
+  })
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 

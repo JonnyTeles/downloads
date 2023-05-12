@@ -6,6 +6,8 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   safelist: [
+    'hover:bg-purple-500',
+    'bg-purple-500',
     {
       pattern: /(from|to)-(green|blue|gray|red|purple)-(50|100|200|300|400|500|600|700|800|900|950)/
     },
