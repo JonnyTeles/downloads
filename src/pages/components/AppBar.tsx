@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Face3Icon from "@mui/icons-material/Face3";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
+//import Button from "./Button";
 
 const pages = ["Início", "Histórico"];
 
@@ -141,15 +142,29 @@ function ResponsiveAppBar() {
               {pages.map((page) => (
                 <Link href={page === "Início" ? "/" : "/historic"} key={page}>
                   <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    className={`hover:bg-purple-500 ${
+                    className={
                       router.pathname ===
                       (page === "Início" ? "/" : "/historic")
                         ? "bg-purple-500"
                         : ""
-                    }`}
-                    sx={{ my: 2, color: "white", display: "block", m: 1 }}
+                    }
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      color: "white",
+                      display: "block",
+                      m: 1,
+                      backgroundColor:
+                        router.pathname ===
+                        (page === "Início" ? "/" : "/historic")
+                          ? "#a855f7"
+                          : "",
+                      "&:hover": {
+                        backgroundColor: "#a855f7",
+                        color: "white",
+                      },
+                    }}
                   >
                     {page}
                   </Button>
