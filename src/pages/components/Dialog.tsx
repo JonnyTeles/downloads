@@ -7,9 +7,20 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "./Button";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
+import DarkMode from "@/hooks/darkMode";
+import { useState, useEffect } from "react";
 
 export default function AlertDialog(props: any) {
   const [open, setOpen] = React.useState(false);
+  const { darkMode } = DarkMode();
+  const [background, setBackground] = useState(
+    "bg-gradient-to-r from-blue-500 to-blue-800"
+  );
+  useEffect(() => {
+    setBackground(
+      darkMode ? "#111827" : "white"
+    );
+  }, [darkMode]);
 
   const customTheme = createTheme({
     palette: {
@@ -41,6 +52,7 @@ export default function AlertDialog(props: any) {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        PaperProps={{ style: { backgroundColor: background } }}
       >
         <DialogTitle
           id="alert-dialog-title"

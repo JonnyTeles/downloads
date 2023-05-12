@@ -36,13 +36,6 @@ export default function HistoricPage() {
   );
 
   return (
-    <div
-      className={`
-        flex justify-center items-center min-h-screen
-        bg-gradient-to-r from-blue-500 to-blue-800
-        text-white h-auto
-      `}
-    >
       <Layout title="Histórico de pesquisas">
         <SnackBar
           open={open}
@@ -146,6 +139,5 @@ export default function HistoricPage() {
           </>
         )}
       </Layout>
-    </div>
   );
 }

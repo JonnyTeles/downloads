@@ -7,12 +7,24 @@ import YouTube from "react-youtube";
 import axios from "axios";
 import SnackBar from "./Snackbar";
 import Download from "@/hooks/download";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import DarkMode from "@/hooks/darkMode";
 
 export default function DownloadCard(props: iDownloadCard) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [className, setClassName] = useState("m-1 hover:bg-purple-500");
   const { openSnackbar, closeSnackbar, message, type, open } = Download();
+  const { darkMode } = DarkMode();
+  const [background, setBackground] = useState(
+    "bg-gradient-to-r from-blue-500 to-blue-800"
+  );
+  useEffect(() => {
+    setBackground(
+      darkMode
+        ? "bg-gradient-to-r from-blue-900 to-blue-950"
+        : "bg-gradient-to-r from-blue-500 to-blue-800"
+    );
+  }, [darkMode]);
 
   async function handleDownload(
     url: string,
@@ -99,9 +111,9 @@ export default function DownloadCard(props: iDownloadCard) {
       <div
         className={`
         flex justify-center 
-        bg-gradient-to-r from-blue-500 to-blue-700
         flex-col-reverse
         text-white
+      ${background}
       `}
       >
         <SnackBar
@@ -139,9 +151,9 @@ export default function DownloadCard(props: iDownloadCard) {
       <div
         className={`
         flex justify-center 
-        bg-gradient-to-r from-blue-500 to-blue-700
         flex-col-reverse
         text-white
+        ${background}
       `}
       >
         <SnackBar
@@ -196,9 +208,9 @@ export default function DownloadCard(props: iDownloadCard) {
       <div
         className={`
         flex justify-center 
-        bg-gradient-to-r from-blue-500 to-blue-700
         flex-col-reverse
         text-white
+        ${background}
       `}
       >
         <SnackBar

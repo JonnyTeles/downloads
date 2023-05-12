@@ -29,13 +29,6 @@ export default function Home() {
   const icon = getIcon();
 
   return (
-    <div
-      className={`
-    flex justify-center items-center min-h-screen
-    bg-gradient-to-r from-blue-500 to-blue-800
-    text-white h-auto
-    `}
-    >
       <Layout title="Download YouTube, Twitter, Twitch">
         {visibleSpinner ? (
           <Spinner color="purple" text="Buscando..." />
@@ -104,6 +97,5 @@ export default function Home() {
           />
         )}
       </Layout>
-    </div>
   );
 }
