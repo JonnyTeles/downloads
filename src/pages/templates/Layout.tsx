@@ -26,11 +26,9 @@ export default function Layout(props: iLayout) {
     );
   }, [darkMode]);
 
-  const [buttonIcon, setButtonIcon] = useState(Icon())
+  const [buttonIcon, setButtonIcon] = useState(Icon());
   useEffect(() => {
-    setButtonIcon(
-      darkMode ? Icon("sun") : Icon("moon")
-    );
+    setButtonIcon(darkMode ? Icon("sun") : Icon("moon"));
   }, [darkMode]);
 
   const [buttonText, setbuttonText] = useState("Modo Escuro");
@@ -49,6 +47,8 @@ export default function Layout(props: iLayout) {
         className={`
       flex flex-col w-2/3
       rounded-md
+      shadow-purple-700
+    shadow-xl
       ${layout}
       `}
       >

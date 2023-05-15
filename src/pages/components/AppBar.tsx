@@ -13,7 +13,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Face3Icon from "@mui/icons-material/Face3";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
-//import Button from "./Button";
 
 const pages = ["Início", "Histórico"];
 

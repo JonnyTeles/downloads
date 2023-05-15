@@ -17,7 +17,7 @@ export default function HistoricPage() {
   }, [historic]);
 
   const clearHistoric = () => {
-    localStorage.clear();
+    localStorage.removeItem("historico");
     setIsHistoricEmpty(true);
   };
 
