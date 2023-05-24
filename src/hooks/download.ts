@@ -175,11 +175,11 @@ export default function Download() {
         showForm,
         showSpinner,
         getRes,
+        closeSnackbar,
+        openSnackbar,
         visibleDownloadCard,
         visibleForm,
         visibleSpinner,
-        openSnackbar,
-        closeSnackbar,
         message,
         open,
         type
