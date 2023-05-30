@@ -34,7 +34,7 @@ export default function DownloadCard(props: iDownloadCard) {
   ) {
     setIsDownloading(true);
     setClassName("m-1 bg-gray-500");
-    openSnackbar(`O downlaod começará em breve...`, "success");
+    openSnackbar(`O download começará em breve...`, "success");
     if (youtube) {
       if (quality === "mp3") {
         axios
